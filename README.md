@@ -1,19 +1,16 @@
-# Atlas Logist MVP
+# Atlas Logist — presentation prototype
 
-Статический MVP для проверки экономики доставки. Заявки и затраты обрабатываются в браузере; сервер, реальные API и сохранение данных между сессиями не подключены.
+Stage 1: static Settings and Decision Fork screens. A single presentation scenario: 60,000 orders, branch B 3,260 trips, 497 RUB per point, baseline 780 RUB, savings 16.98m RUB (17.0m rounded).
 
-## Сценарий
-1. Загрузите CSV UTF-8 или учебный набор из 48 заявок.
-2. Укажите затраты рейса, тарифы курьеров и ограничения по весу.
-3. Сравните исходный и гибридный планы.
-4. Выгрузите назначения и расчёт бюджета по исходным рейсам.
+No carrier APIs, route solver or real dispatch are executed. The visible demonstration mode identifies the experience as a prototype. The dispatch button stays disabled until the next stage is implemented.
 
-CSV: `id;store;route;boxes;weight_kg;courier_ok`. Каждая строка — одна доставка. Номер уникален, вес положительный, число ящиков целое положительное, courier_ok — 0 или 1. Максимум 5 МБ и 10 000 заявок.
+Colors: #F1F1F2, #1C1F20, #5C5C60, #5880A6, #406180, #B8CFE6, #EDF5FF.
+Typography: locally hosted IBM Plex Sans Condensed, IBM Plex Sans and IBM Plex Mono.
 
-## Модель
-Бюджет каждого исходного рейса: фиксированная часть + число оставшихся точек × переменная стоимость. Если точек не осталось, рейс закрывается и фиксированные затраты снимаются. При допуске курьеров проверяются ящики и вес. План выбирает минимальную стоимость в рамках этой модели, исходного состава рейсов и заданных тарифов. Ставки одинаковы для всех рейсов. Учебные ставки не являются рыночными предложениями.
+Settings preserve target, channels, tonnage rates, delivery windows and response timeout in the current browser session. Three branches can be selected; target changes their target-status labels. Tonnage settings are UI inputs for later scenario stages, not a production calculator. Alternative branch and waterfall component figures are provisional presentation values; the supplied brief specified the branch B anchor but embedded slide images could not be retrieved for exact transcription.
 
-Не учитываются перестроение маршрутов, география, временные окна, фактическая доступность исполнителей и прогноз SLA. Их нужно проверить до отправки плана на исполнение. План не отправляется перевозчикам.
+Existing Excel import files and SheetJS remain available for stage 2 integration. Previous calculator source remains in app.js/style.css/engine.js but is no longer loaded by index.html.
 
-## Запуск и публикация
-Откройте index.html либо запустите `python -m http.server 8000`. GitHub Actions публикует main через GitHub Pages.
+Next: 30-second offline map analysis, then simulated dispatch, monitoring and dedicated mobile flows. Read the approved visual direction before proceeding.
+
+GitHub Pages publishes main automatically. Keep stage.js/stage.css cache versions current in index.html.
