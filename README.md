@@ -14,3 +14,7 @@ Existing Excel import files and SheetJS remain available for stage 2 integration
 Next: 30-second offline map analysis, then simulated dispatch, monitoring and dedicated mobile flows. Read the approved visual direction before proceeding.
 
 GitHub Pages publishes main automatically. Keep stage.js/stage.css cache versions current in index.html.
+
+
+## Анализ и мониторинг
+Добавлен автономный SVG-анализ за 30 секунд с завершением по кнопке. Excel/CSV принимает существующий шаблон и показывает фактическое число строк; расчёт и карта демонстрируют фиксированный сценарий 60 000 заявок. Рассылка моделируется за 8 секунд; никаких API-вызовов перевозчикам нет. Мониторинг показывает демонстрационный срез дня, а экспорт CSV содержит все рейсы выбранной ветки, суммарно 60 000 заявок.
