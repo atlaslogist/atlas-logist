@@ -1,20 +1,40 @@
-# Atlas Logist — presentation prototype
+# Atlas Logist — прототип
 
-Stage 1: static Settings and Decision Fork screens. A single presentation scenario: 60,000 orders, branch B 3,260 trips, 497 RUB per point, baseline 780 RUB, savings 16.98m RUB (17.0m rounded).
+Три шага: «Настройки» → «Заявки» → «Анализ и решение». Демо-сценарий один: пакет № 2417, 60 000 заявок из РЦ Подольск. Ветка B — 497 ₽ за точку при сегодняшних 780 ₽, экономия 16,98 млн ₽ на пакет.
 
-No carrier APIs, route solver or real dispatch are executed. The visible demonstration mode identifies the experience as a prototype. The dispatch button stays disabled until the next stage is implemented.
+## Шаги
 
-Colors: #F1F1F2, #1C1F20, #5C5C60, #5880A6, #406180, #B8CFE6, #EDF5FF.
-Typography: locally hosted IBM Plex Sans Condensed, IBM Plex Sans and IBM Plex Mono.
+1. **Настройки.** Цель за точку (ползунок 300–900 ₽ с отметкой «сегодня 780 ₽»), склад отгрузки, девять каналов доставки с переключателями, ставки по тоннажу, окно доставки и время ожидания ответа перевозчика. Справа итог с экономией при выбранной цели.
+2. **Заявки.** Вкладка «Пакет дня» показывает 60 000 демо-заявок: показатели, разбивку по зонам, нагрузку по часам и таблицу с поиском. Вкладка «Мои заявки» — свои заявки: ручной ввод в боковой панели, импорт Excel/CSV до 5 000 строк с сопоставлением колонок, выгрузка CSV.
+3. **Анализ и решение.** Анализ идёт около 5 секунд: точки на карте, 3D-столбики плотности по зонам, перебор маршрутов, рейсы по дорогам, ставки перевозчиков. Затем окно с тремя вариантами: цена, рейсы, сроки, график «откуда экономия» и доли перевозчиков. После выбора — смоделированная рассылка и мониторинг дня с машинами на карте и выгрузкой плана в CSV.
 
-Settings preserve target, channels, tonnage rates, delivery windows and response timeout in the current browser session. Three branches can be selected; target changes their target-status labels. Tonnage settings are UI inputs for later scenario stages, not a production calculator. Alternative branch and waterfall component figures are provisional presentation values; the supplied brief specified the branch B anchor but embedded slide images could not be retrieved for exact transcription.
+## Что настоящее, а что демо
 
-Existing Excel import files and SheetJS remain available for stage 2 integration. Previous calculator source remains in app.js/style.css/engine.js but is no longer loaded by index.html.
+- Карта — MapLibre GL 5.24 (`vendor/maplibre`) и векторные тайлы OpenFreeMap. Стиль `assets/map/atlas-light.json` переделан из Positron: цвета бренда, подписи по-русски. Тайлам нужен интернет. Без него анализ и варианты работают, вместо карты показывается заглушка.
+- 45 рейсов проложены по дорогам через OSRM по данным OpenStreetMap и сохранены в `js/routes-data.js`. Точки, зоны и демо-заявки строятся в `js/data.js` с фиксированным зерном, поэтому пакет каждый раз одинаковый.
+- Перевозчики, их ставки и доли, а также составляющие графика экономии — иллюстративные значения. Логотипы — плашки фирменного цвета с буквами, не оригинальные знаки.
+- Рассылка и мониторинг смоделированы, API перевозчиков не вызываются.
+- Анализ всегда считает пакет дня. Свои заявки пока в расчёт не идут: для этого нужен поиск адресов на карте.
+- Настройки, склад и свои заявки хранятся в `localStorage` этого браузера.
 
-Next: 30-second offline map analysis, then simulated dispatch, monitoring and dedicated mobile flows. Read the approved visual direction before proceeding.
+## Файлы
 
-GitHub Pages publishes main automatically. Keep stage.js/stage.css cache versions current in index.html.
+- `index.html`, `atlas.css` — оболочка и стили.
+- `js/util.js` — форматирование, иконки, хранилище, анимации.
+- `js/data.js` — сценарий, перевозчики, зоны, генерация точек и заявок, шестиугольная сетка.
+- `js/routes-data.js` — геометрия рейсов.
+- `js/settings.js`, `js/orders.js`, `js/analysis.js`, `js/map.js` — шаги и карта.
+- `js/app.js` — шапка со степпером и переходы по адресу (`#settings`, `#orders`, `#analysis`).
+- `assets/fonts` — Onest, Unbounded, JetBrains Mono (OFL).
 
+Прежний калькулятор (`app.js`, `style.css`, `engine.js`, `import.js`) лежит в репозитории, `index.html` его не подключает.
 
-## Анализ и мониторинг
-Добавлен автономный SVG-анализ за 30 секунд с завершением по кнопке. Excel/CSV принимает существующий шаблон и показывает фактическое число строк; расчёт и карта демонстрируют фиксированный сценарий 60 000 заявок. Рассылка моделируется за 8 секунд; никаких API-вызовов перевозчикам нет. Мониторинг показывает демонстрационный срез дня, а экспорт CSV содержит все рейсы выбранной ветки, суммарно 60 000 заявок.
+## Запуск и проверка
+
+```
+python3 -m http.server 8417
+```
+
+Открыть http://localhost:8417. Проверки без браузера: `node check-orders.cjs`.
+
+GitHub Pages публикует `main` автоматически. После правок стилей поднимать версию `atlas.css?v=` в `index.html`.

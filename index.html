@@ -1,4 +1,47 @@
 <!doctype html>
-<html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Atlas Logist — план доставки</title><link rel="icon" href="favicon.svg"><link rel="stylesheet" href="assets/fonts/fonts.css"><link rel="stylesheet" href="stage.css?v=5"></head>
-<body><header class="top"><a class="logo" href="#settings">Atlas<span>Logist</span></a><div class="facility"><span class="mono">РАСПРЕДЕЛИТЕЛЬНЫЙ ЦЕНТР</span><b>Подольск</b></div><span class="mode mono">ДЕМОНСТРАЦИЯ ПРОДУКТА</span><div class="package mono">ПАКЕТ № 2417<br><span>60 000 заявок</span></div></header><nav aria-label="Этапы работы"><button data-screen="orders">00 <span>Заявки</span></button><button data-screen="settings">01 <span>Настройки</span></button><button data-screen="analysis">02 <span>Анализ</span></button><button data-screen="branches">03 <span>Развилка</span></button><button data-screen="monitoring">04 <span>Мониторинг</span></button></nav><main id="app"></main><footer><span class="mono">ATLAS LOGIST · 2026</span><span>РЦ Подольск / пакет доставки</span></footer><script src="vendor/xlsx.full.min.js"></script><script src="engine.js"></script><script src="import.js"></script><script src="stage.js?v=3"></script><script src="orders.js?v=3"></script></body></html>
-
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Atlas Logist — план доставки</title>
+<meta name="description" content="Atlas Logist: цель по цене, заявки и план доставки из трёх вариантов за пять секунд.">
+<meta name="theme-color" content="#F3F4F6">
+<link rel="icon" href="favicon.svg">
+<link rel="preload" href="assets/fonts/onest-cyrillic-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/unbounded-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/fonts/fonts.css">
+<link rel="stylesheet" href="vendor/maplibre/maplibre-gl.css">
+<link rel="stylesheet" href="atlas.css?v=1">
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="#settings" data-step="settings" aria-label="Atlas Logist, к настройкам">
+    <svg class="brand-mark" viewBox="0 0 36 36" aria-hidden="true">
+      <defs><linearGradient id="bm" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#6B93B8"/><stop offset="1" stop-color="#33506B"/></linearGradient></defs>
+      <rect width="36" height="36" rx="10" fill="url(#bm)"/>
+      <path d="M9.5 26.5 18 9.5l8.5 17M12.8 20h10.4" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+      <circle cx="18" cy="9.5" r="2.6" fill="#fff"/><circle cx="9.5" cy="26.5" r="2.6" fill="#fff"/><circle cx="26.5" cy="26.5" r="2.6" fill="#B8CFE6"/>
+    </svg>
+    <span class="brand-name">Atlas<span>Logist</span></span>
+  </a>
+  <nav class="steps" id="steps" aria-label="Шаги работы"></nav>
+  <div class="top-meta">
+    <span class="top-chip"><svg class="ico" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 20V9l9-5 9 5v11"/><path d="M7 20v-7h10v7M7 16.5h10"/></svg>РЦ Подольск</span>
+    <span class="demo-badge" title="Демонстрационный сценарий: расчёт и рассылка смоделированы, перевозчикам ничего не отправляется">Демо</span>
+  </div>
+</header>
+<main id="app" class="page"></main>
+<section id="stage" class="stage" hidden aria-label="Анализ и решение"></section>
+<div id="overlay-root"></div>
+<div id="toast-root" class="toasts" aria-live="polite"></div>
+<script src="vendor/maplibre/maplibre-gl.js"></script>
+<script src="js/util.js"></script>
+<script src="js/data.js"></script>
+<script src="js/routes-data.js"></script>
+<script src="js/orders.js"></script>
+<script src="js/settings.js"></script>
+<script src="js/map.js"></script>
+<script src="js/analysis.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
